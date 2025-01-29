@@ -1,25 +1,38 @@
-function adicionarNumeros(numero){
+let expressao = '';
+
+function adicionarNumero(numero){
     const visor = document.getElementById('visor');
-    visor.value = numero;
+    expressao += numero;
+    visor.value = expressao
 }
 
 function adicionarOperador(operador){
     const visor = document.getElementById('visor');
-    visor.value += operador;
-
+    if (expressao === '' || /[\+\-\*\/]$/.test(expressao)){
+        return;
+    }
+    expressao += operador;
+    visor.value = expressao;
 }
 
 function limparVisor(){
-    const visor = document.getElementById('visor');
-    visor.value = '';
+    expressao = '';
+    document.getElementById('visor').value = '';
 }
 
 function calcular(){
     const visor = document.getElementById('visor');
     try{
-        visor.value = eval(visor.value);
+        if(/[\+\-\*\/]$/.test(expressao)){
+            visor.value = 'error';
+            return;
+        }
+        const resultado = Function('"use strict"; return (' + expressao + ')')();
+        expressao = resultado.toString();
+        visor.value = expressao;
     }catch(e){
-        alert('Operação inválida!');
         visor.value = 'error';
+        expressao = 
+        alert('Operação inválida!');
     }
 }
