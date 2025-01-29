@@ -1,0 +1,194 @@
+EXPLICAÇÃO DO CÓDIGO DA CALCULADORA
+
+------------------------------------------------------------
+📌 INTRODUÇÃO
+------------------------------------------------------------
+
+Este documento explica o funcionamento do código da calculadora, detalhando as partes do HTML, CSS e JavaScript.
+Além disso, explico as correções feitas e os motivos de cada uma.
+
+------------------------------------------------------------
+🔹 1. HTML - Estrutura da Calculadora
+------------------------------------------------------------
+
+O HTML é responsável pela estrutura da página. No código original, ele já estava bem organizado, contendo:
+
+✔ Um campo de entrada (<input>) que serve como visor da calculadora  
+✔ Botões numéricos (0 a 9)  
+✔ Botões de operações matemáticas (+, -, *, /)  
+✔ Botões especiais: "C" para limpar o visor e "=" para calcular o resultado  
+
+Aqui está a estrutura básica:
+
+--------------------------------------
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculadora">
+        <input type="text" id="visor" disabled>
+        <div class="botoes">
+            <button onclick="adicionarNumero('7')">7</button>
+            <button onclick="adicionarNumero('8')">8</button>
+            <button onclick="adicionarNumero('9')">9</button>
+            <button onclick="adicionarOperador('/')">/</button>
+
+            <button onclick="adicionarNumero('4')">4</button>
+            <button onclick="adicionarNumero('5')">5</button>
+            <button onclick="adicionarNumero('6')">6</button>
+            <button onclick="adicionarOperador('*')">*</button>
+
+            <button onclick="adicionarNumero('1')">1</button>
+            <button onclick="adicionarNumero('2')">2</button>
+            <button onclick="adicionarNumero('3')">3</button>
+            <button onclick="adicionarOperador('-')">-</button>
+
+            <button onclick="adicionarNumero('0')">0</button>
+            <button onclick="limparVisor()">C</button>
+            <button onclick="calcular()">=</button>
+            <button onclick="adicionarOperador('+')">+</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+--------------------------------------
+
+🔹 O que foi melhorado?
+Nenhuma alteração foi feita no HTML, pois ele já estava correto.
+
+------------------------------------------------------------
+🎨 2. CSS - Melhorando a Aparência
+------------------------------------------------------------
+
+O CSS deixa a calculadora mais bonita e organizada. O código original estava funcional, mas fiz algumas melhorias visuais:
+
+✔ Melhor contraste no visor  
+✔ Botões com efeito de clique mais visível  
+✔ Layout centralizado e estilizado  
+
+Aqui está o CSS ajustado:
+
+--------------------------------------
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #2c3e50;
+    font-family: Arial, sans-serif;
+}
+
+.calculadora {
+    width: 320px;
+    background-color: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+}
+
+#visor {
+    width: 100%;
+    height: 60px;
+    font-size: 28px;
+    text-align: right;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+.botoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    padding: 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:active {
+    background-color: #1f618d;
+}
+--------------------------------------
+
+🔹 O que foi melhorado?
+✔ O fundo ficou mais agradável  
+✔ O visor ficou mais legível  
+✔ Os botões ganharam um efeito mais bonito  
+
+------------------------------------------------------------
+⚙ 3. JavaScript - Funcionamento da Calculadora
+------------------------------------------------------------
+
+O JavaScript controla a lógica da calculadora. No código original, havia um problema:
+- Não havia controle para evitar operadores seguidos (ex: "5++2" causaria erro)
+- O uso do "eval()" pode ser perigoso, pois permite a execução de código malicioso.
+
+Aqui está o código corrigido:
+
+--------------------------------------
+let visor = document.getElementById("visor");
+
+function adicionarNumero(numero) {
+    visor.value += numero;
+}
+
+function adicionarOperador(operador) {
+    if (visor.value === "" || /[\+\-\*\/]$/.test(visor.value)) {
+        return; // Impede operadores duplicados
+    }
+    visor.value += operador;
+}
+
+function limparVisor() {
+    visor.value = "";
+}
+
+function calcular() {
+    try {
+        visor.value = Function('"use strict"; return (' + visor.value + ')')();
+    } catch {
+        visor.value = "Erro";
+    }
+}
+--------------------------------------
+
+🔹 O que foi melhorado?
+✔ Evita operadores duplicados (ex: "5++2")  
+✔ Substitui "eval()" por "Function()" para mais segurança  
+✔ Mantém a funcionalidade intacta, mas com mais robustez  
+
+------------------------------------------------------------
+🏆 CONCLUSÃO
+------------------------------------------------------------
+
+A calculadora agora:
+✅ Tem um visual mais bonito e moderno  
+✅ Funciona corretamente, evitando erros comuns  
+✅ É mais segura e robusta  
+
+Agora você tem um código melhor para estudar e entender como funciona uma calculadora simples em HTML, CSS e JavaScript!
+
+Bons estudos! 🚀😃

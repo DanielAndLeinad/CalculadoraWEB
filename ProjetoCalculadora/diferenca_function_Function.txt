@@ -1,0 +1,99 @@
+DIFERENÇA ENTRE Function E function NO JAVASCRIPT
+
+------------------------------------------------------------
+1️⃣ function (Declaração de Função Tradicional)
+------------------------------------------------------------
+
+A palavra-chave "function" é usada para declarar funções de forma tradicional. 
+Isso permite que você reutilize blocos de código em seu programa.
+
+Exemplo:
+--------------------------------------
+function somar(a, b) {
+    return a + b;
+}
+
+console.log(somar(3, 5)); // Saída: 8
+--------------------------------------
+
+✅ Criamos uma função chamada "somar" que recebe dois números e retorna a soma.  
+✅ Essa função é definida de forma **estática**, ou seja, seu código já existe no momento em que o JavaScript está interpretando o script.
+
+------------------------------------------------------------
+2️⃣ Function (Construtor de Função Dinâmica)
+------------------------------------------------------------
+
+"Function" (com F maiúsculo) é um **construtor** que cria funções de forma dinâmica, 
+como se fossem strings sendo transformadas em código.
+
+Exemplo:
+--------------------------------------
+const somar = new Function("a", "b", "return a + b;");
+
+console.log(somar(3, 5)); // Saída: 8
+--------------------------------------
+
+✅ Criamos a função **dinamicamente**, passando parâmetros e o corpo como strings.  
+✅ Essa função **não existe no código-fonte original**, ela só é criada em tempo de execução.
+
+------------------------------------------------------------
+🔹 PRINCIPAIS DIFERENÇAS ENTRE function E Function 🔹
+------------------------------------------------------------
+
+| Característica        | function (Tradicional) | Function (Construtor) |
+|----------------------|----------------------|------------------------|
+| **Como é definida?** | Definida no código diretamente | Criada dinamicamente em tempo de execução |
+| **Quando é criada?** | No momento que o código é carregado | Apenas quando o "new Function()" é chamado |
+| **Acesso ao escopo** | Acessa variáveis externas (escopo léxico) | Não acessa variáveis externas |
+| **Segurança** | Seguro de usar | Pode ser arriscado (similar ao "eval()") |
+| **Usado para?** | Funções normais e reutilizáveis | Criar funções dinamicamente a partir de strings |
+
+------------------------------------------------------------
+🚨 DIFERENÇA IMPORTANTE: ESCOPO 🚨
+------------------------------------------------------------
+
+A maior diferença prática entre os dois é o **escopo**.
+
+🔹 Uma função normal (function) **pode acessar variáveis externas** ao seu bloco de código:
+
+Exemplo:
+--------------------------------------
+let valor = 10;
+
+function dobrar() {
+    return valor * 2; // Acessa "valor" que está fora da função
+}
+
+console.log(dobrar()); // Saída: 20
+--------------------------------------
+
+🔹 Já uma função criada com Function **NÃO acessa** variáveis externas:
+
+Exemplo:
+--------------------------------------
+let valor = 10;
+
+const dobrar = new Function("return valor * 2;"); 
+
+console.log(dobrar()); // Erro: "valor is not defined"
+--------------------------------------
+
+🚨 Isso acontece porque "new Function()" cria a função em um escopo isolado, sem acesso ao escopo externo.
+
+------------------------------------------------------------
+📌 QUANDO USAR CADA UM?
+------------------------------------------------------------
+
+✅ **Use function (tradicional) sempre que possível**, pois é mais seguro, rápido e tem acesso ao escopo externo.
+
+⚠️ **Use Function() apenas quando precisar criar funções dinamicamente**, por exemplo, ao construir uma função baseada em um código recebido externamente (mas tenha cuidado com segurança!).
+
+------------------------------------------------------------
+🏆 RESUMO FINAL 🏆
+------------------------------------------------------------
+
+- **function** → Forma comum e recomendada de criar funções.
+- **Function** → Criada dinamicamente, mas não acessa escopos externos e pode ser arriscada.
+
+------------------------------------------------------------
+🎯 Espero que tenha ficado claro! Bons estudos! 🚀😃
